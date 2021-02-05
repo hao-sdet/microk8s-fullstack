@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bankend-nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /api(/|$)?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: flask-backend-service
+            port:
+              number: 5000
