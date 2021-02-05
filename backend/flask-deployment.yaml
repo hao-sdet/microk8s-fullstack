@@ -9,12 +9,12 @@ spec:
   selector:
     matchLabels:
       app: flask-backend-app
-      version: 
+      version: v1.0.0
   template:
     metadata:
       labels:
         app: flask-backend-app
-        version:
+        version: v1.0.0
     spec:
       containers:
       - name: flask-backend-container
@@ -34,4 +34,18 @@ spec:
               name: flask-secret
               key: flask-jwt
         - name: VERSION
-          value:
+          value: v1.0.0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-backend-service
+  labels:
+    app: flask-backend-app
+spec:
+  type: NodePort
+  ports:
+  - port: 5000
+    nodePort: 30008
+  selector:
+    app: flask-backend-app
