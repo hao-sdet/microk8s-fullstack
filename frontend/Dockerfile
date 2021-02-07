@@ -1,14 +1,13 @@
-FROM node:12.2.0-alpine as build
+FROM node:15.8.0-alpine as build
 
 # Set working directory
-WORKDIR /app
+WORKDIR /usr/src/app
 
-# Copy the react app to the container
-COPY . /app/
-
-# Install and build react app
-RUN npm install --silent
-RUN npm run build --silent
+# Install and build React app using yarn (--network-timeout 1000000 fixes the slow network error)
+COPY package.json yarn.lock ./
+RUN yarn install --network-timeout 1000000
+COPY . ./
+RUN yarn build
 
 # Nginx
 FROM nginx:stable-alpine
