@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-database-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-database-app
+  template:
+    metadata:
+      labels:
+        app: postgres-database-app
+    spec:
+      containers:
+        - name: postgres-database-container
+          image: postgres:13.1-alpine
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: postgres-database-configmap
+          env:
+            - name: POSTGRES_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-database-secret
+                  key: postgres-username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-database-secret
+                  key: postgres-password
+          volumeMounts:
+            - name: postgres-persistent-storage
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: postgres-persistent-storage
+          persistentVolumeClaim:
+            claimName: postgres-database-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-database-service
+  labels:
+    app: postgres-database-app
+spec:
+  type: NodePort
+  ports:
+    - port: 5432
+      nodePort: 30001
+  selector:
+    app: postgres-database-app
