@@ -3,7 +3,7 @@ FROM node:15.8.0-alpine as build
 # Set working directory
 WORKDIR /usr/src/app
 
-# Install and build React app using yarn (--network-timeout 1000000 fixes the slow network error)
+# Install and build React app using yarn (--network-timeout 1000000 fixes the slow network error issue)
 COPY package.json yarn.lock ./
 RUN yarn install --network-timeout 1000000
 COPY . ./
