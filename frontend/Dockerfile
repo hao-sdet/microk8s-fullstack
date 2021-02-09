@@ -1,4 +1,4 @@
-FROM node:13.12.0-alpine as build
+FROM node:15.8.0-alpine as build
 WORKDIR /app
 COPY . .
 RUN yarn
@@ -10,5 +10,5 @@ COPY --from=build /app/build /usr/share/nginx/html
 COPY --from=build /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Start Nginx
-EXPOSE 80
+EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
