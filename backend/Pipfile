@@ -10,6 +10,11 @@ flask = "*"
 gunicorn = "*"
 python-dotenv = "*"
 flask-sqlalchemy = "*"
+marshmallow = "*"
+flask-bcrypt = "*"
+psycopg2-binary = "*"
+flask-script = "*"
+flask-migrate = "*"
 
 [requires]
 python_version = "3.8"
