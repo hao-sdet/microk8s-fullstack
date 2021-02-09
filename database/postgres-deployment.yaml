@@ -22,7 +22,7 @@ spec:
             - configMapRef:
                 name: postgres-database-configmap
           env:
-            - name: POSTGRES_USERNAME
+            - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   name: postgres-database-secret

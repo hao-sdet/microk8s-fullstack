@@ -5,4 +5,4 @@ metadata:
   labels:
     app: postgres-database-app
 data:
-  POSTGRES_DATABASE: postgresdb
+  POSTGRES_DB: postgresdb
