@@ -16,13 +16,14 @@ spec:
     spec:
       containers:
       - name: react-frontend-container
-        image: localhost:32000/react-nginx-frontend
+        image: localhost:32000/react-nginx-frontend:registry
         imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: react-frontend-service
+  namespace: "default"
   labels:
     app: react-frontend-app
 spec:
@@ -31,6 +32,6 @@ spec:
     app: react-frontend-app
   ports:
   - protocol: TCP
-    port: 8080
-    targetPort: 8080
+    port: 80
+    targetPort: 80
     nodePort: 30007
