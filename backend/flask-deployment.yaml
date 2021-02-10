@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: flask-backend-container
-        image: localhost:32000/flask-api-backend
+        image: localhost:32000/flask-api-backend:registry
         imagePullPolicy: Always
         env:
         - name: FLASK_ENV
