@@ -1,0 +1,8 @@
+postgres:
+  enabled: true
+flask:
+  enabled: true
+react:
+  enabled: true
+nginx-ingress:
+  enabled: true

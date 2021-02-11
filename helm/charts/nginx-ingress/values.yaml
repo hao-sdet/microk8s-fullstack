@@ -1,0 +1,26 @@
+enabled: false
+frontendIngress:
+  name: frontend-nginx-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: "/"                                        
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true" 
+  hosts:
+    - host: example.com 
+      paths:
+        - path: "/"
+          serviceName: react-frontend-service
+          servicePort: 80
+
+backendIngress:
+  name: bankend-api-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+  hosts:
+    - host: api.example.com
+      paths:
+        - path: "/"
+          serviceName: flask-backend-service 
+          servicePort: 5000

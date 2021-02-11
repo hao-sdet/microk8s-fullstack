@@ -1,0 +1,47 @@
+enabled: false
+replicaCount: 1
+
+postgres:
+  name: postgres
+  deploymentName: postgres-database-deployment
+  container:
+    name: postgres-database-container
+    image: postgres:13.1-alpine
+    imagePolicy: IfNotPresent
+    port: 5432
+  service:
+    name: postgres-database-service
+    type: ClusterIP
+    port: 5432
+    protocol: TCP
+  volume:
+    name: postgredb
+    mountPath: /var/lib/postgresql/data
+    pvc:
+      kind: PersistentVolumeClaim
+      name: postgres-database-pvc
+      accessMode: ReadWriteMany
+      storage: 5Gi
+      className: manual
+    pv:
+      kind: PersistentVolume
+      name: postgres-database-pv
+      type: local
+      className: manual
+      accessMode: ReadWriteMany
+      storage: 5Gi
+      path: "/opt/postgres/data"
+  config:
+    name: postgres-database-configmap
+    data:
+       - key: POSTGRES_DB
+          value: postgresdb
+  secret:
+    name: postgres-database-secret
+    type: Opaque
+    postgresUserKey: POSTGRES_USER
+    postgresUserValue: YWRtaW4K
+    postgresPasswordKey: POSTGRES_PASSWORD
+    postgresPasswordValue: cGFzc3dvcmQxCg==
+    postgresUrlKey: DATABASE_URL
+    postgresUrlValue: cG9zdGdyZXM6Ly9hZG1pbjpwYXNzd29yZDFAbG9jYWxob3N0OjU0MzIvcG9zdGdyZXNkYgo=

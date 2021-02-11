@@ -1,0 +1,17 @@
+enabled: false
+replicaCount: 3
+
+react:
+  name: react-frontend-app
+  deploymentname: react-frontend-deployment
+  container:
+    name: react-frontend-container
+    image: "localhost:32000/react-nginx-frontend:registry"
+    imagepolicy: Always
+  service:
+    name: react-frontend-service
+    type: NodePort
+    protocol: TCP
+    port: 80
+    nodeport: 30007
+    targetport: 80

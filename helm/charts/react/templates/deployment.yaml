@@ -1,0 +1,22 @@
+{{- if .Values.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.react.deploymentname }}
+  labels:
+    app: {{ .Values.react.name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.react.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.react.name }}
+    spec:
+      containers:
+        - name: {{ .Values.react.container.name }}
+          image: {{ .Values.react.container.image }}  
+          imagePullPolicy: {{ .Values.react.container.imagepolicy }}
+{{- end }}

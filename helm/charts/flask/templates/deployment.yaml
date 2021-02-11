@@ -1,0 +1,30 @@
+{{- if .Values.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.flask.deploymentname }}
+  labels:
+    app: {{ .Values.flask.name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.flask.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.flask.name }}
+    spec:
+      containers:
+        - name: {{ .Values.flask.container.name }}
+          image: {{ .Values.flask.container.image }}
+          imagePullPolicy: {{ .Values.flask.container.imagepolicy }}
+          env:
+            - name: {{ .Values.flask.env.envname }}
+              value : {{ .Values.flask.env.envnamevalue }}
+            - name: {{ .Values.flask.secret.dbname }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.flask.secret.name }}
+                  key: {{ .Values.flask.secret.dbname }}
+{{- end }}
