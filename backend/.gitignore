@@ -1,5 +1,8 @@
 .DS_Store
 .vscode
 
+# flask
+migrations
+
 # k8s config
 flask-secret.yaml
