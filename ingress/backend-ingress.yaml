@@ -9,12 +9,13 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
 spec:
   rules:
-    - http:
-      paths:
-        - path: /api(/|$)?(.*)
-          pathType: Prefix
-          backend:
-            service:
-              name: flask-backend-service
-              port:
-                number: 5000
+    - host: api.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: flask-backend-service
+                port:
+                  number: 5000
